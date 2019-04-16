@@ -124,19 +124,7 @@ load("@bazel_toolchains//rules:environments.bzl", "clang_env")
 load("@bazel_toolchains//rules:rbe_repo.bzl", "rbe_autoconfig")
 
 rbe_autoconfig(
+    # This will use the default standard RBE container.
     name = "rbe_ubuntu1604_angular",
-    # The sha256 of marketplace.gcr.io/google/rbe-ubuntu16-04 container that is
-    # used by rbe_autoconfig() to pair toolchain configs in the @bazel_toolchains repo.
-    base_container_digest = "sha256:69c9f1652941d64a46f6f7358a44c1718f25caa5cb1ced4a58ccc5281cd183b5",
-    # Needed because CircleCI does not allow mounting from job space to remote containers.
-    # https://circleci.com/docs/2.0/building-docker-images/#mounting-folders
     copy_resources = True,
-    # Note that if you change the `digest`, you might also need to update the
-    # `base_container_digest` to make sure marketplace.gcr.io/google/rbe-ubuntu16-04-webtest:<digest>
-    # and marketplace.gcr.io/google/rbe-ubuntu16-04:<base_container_digest> have the
-    # same Clang and JDK installed.
-    digest = "sha256:ce383089ba3fc1f6f687fc1e492401e21594c91d9587a315e26e7d6c91aafc4f",
-    env = clang_env(),
-    registry = "marketplace.gcr.io",
-    repository = "google/rbe-ubuntu16-04-webtest",
 )
